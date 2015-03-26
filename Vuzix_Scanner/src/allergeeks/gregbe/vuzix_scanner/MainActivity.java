@@ -50,9 +50,20 @@ public class MainActivity extends Activity  {
 		if (scanningResult != null) {
 			//we have a result
 			String scanContent = scanningResult.getContents();
-			String scanFormat = scanningResult.getFormatName();
-			formatTxt.setText("FORMAT: " + scanFormat);
-			contentTxt.setText("CONTENT: " + scanContent); //Übergabe mit API
+			int result = Integer.parseInt(scanContent);
+			//String scanFormat = scanningResult.getFormatName();
+			
+			if(result == 42141112){
+				Toast toast =Toast.makeText(getApplicationContext(), "Worked", Toast.LENGTH_SHORT);
+				toast.show();
+				
+			}
+			else 
+			{
+				Toast toast =Toast.makeText(getApplicationContext(), "Didn't Worked", Toast.LENGTH_SHORT);
+				toast.show();
+				
+			}
 			}
 		else{
 		    Toast toast = Toast.makeText(getApplicationContext(), 

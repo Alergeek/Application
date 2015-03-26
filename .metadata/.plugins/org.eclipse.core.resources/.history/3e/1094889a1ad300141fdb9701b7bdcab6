@@ -1,0 +1,12 @@
+package allergeeks.edible.vuzix_app;
+import com.vuzix.speech.VoiceControl;
+
+public class myVoiceControl extends VoiceControl {
+
+	
+	private VoiceControl vc;
+	
+	public myVoiceControl(Context context) {
+	super(context);
+	}
+}

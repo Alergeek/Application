@@ -1,0 +1,124 @@
+!SESSION 2015-03-25 18:24:36.038 -----------------------------------------------
+eclipse.buildId=4.4.2.M20150204-1700
+java.version=1.7.0
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2015-03-25 18:24:44.658
+!MESSAGE projectOpenedWithWorkspace: failed to find manifest package for project VUZIX_API
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2015-03-25 18:24:44.662
+!MESSAGE projectOpenedWithWorkspace: failed to find manifest package for project Vuzix_Scanner
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-03-25 18:24:47.045
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-03-25 18:24:47.046
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Gregbe'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:24:47.416
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:24:48.058
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:25:01.596
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:25:01.860
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:29:37.107
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:29:45.031
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:31:55.756
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:32:17.442
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:34:04.050
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:34:09.341
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2015-03-25 18:53:53.834
+!MESSAGE Failed to load properties file for project 'Edible'
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:54:02.542
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:56:18.198
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:56:38.266
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:56:39.337
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:56:53.004
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:57:38.015
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 18:57:49.494
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:09:46.705
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:10:31.818
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:11:37.837
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:12:00.019
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:13:14.525
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:14:53.104
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:15:00.306
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:15:41.473
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:16:01.652
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:16:19.525
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:18:44.452
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:18:56.161
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:19:00.068
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2015-03-25 19:20:09.214
+!MESSAGE Unexpected build target format: Vuzix Corporation:Vuzix M100 Add-On:15
