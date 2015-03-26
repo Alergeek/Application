@@ -1,28 +1,43 @@
 package allergeeks.edible.vuzix_app;
 
-import com.vuzix.speech.VoiceControl;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.vuzix.speech.VoiceControl;
 
 public class MainActivity extends Activity {
 	
 	private Activity main = this;
-	private TextView formatTxt, contentTxt;
+	private TextView result, contentTxt;
 	private VoiceControl vc;
+	Toast toast;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		vc.on();
 		
+	result = (TextView)findViewById(R.id.result);
+		
+		
+		result.setText("Test");
+		vc = new myVoiceControl(this);
+		
+		/*if(vc != null){
+			 toast.makeText(this,"klappt",Toast.LENGTH_LONG).show();
+			
+			 
+		}else{
+			 toast.makeText(this,"klappt nicht",Toast.LENGTH_LONG).show();	
+		}
+		*/
 
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -43,6 +58,18 @@ public class MainActivity extends Activity {
 	}
 	
 	
+	protected void onResume(){
+		super.onResume();
+		vc.on();
+	}
+
+	
+	protected void onPause(){
+		super.onDestroy();
+		vc.off();
+	}
+
+
 }
 
 
