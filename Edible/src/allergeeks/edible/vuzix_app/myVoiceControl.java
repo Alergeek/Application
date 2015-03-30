@@ -32,23 +32,10 @@ public class myVoiceControl extends VoiceControl {
 		// TODO Auto-generated method stub
 	//getView(0, null, null, arg0);
 	//	TextView view;
-	String result = arg0;
-	if(result.equals("10")){
-		getView(0, null, null, result);
-	}
-	else{
-		//do nothing
-	}
-	
-	}
+
 	
 	
-	public void getView(int position, View convertView, ViewGroup parent, String result) {
-	    LayoutInflater inflater = LayoutInflater.from(context2);	//MainActivity.getLayoutInflater()
-	    View textView = inflater.inflate(R.layout.activity_main, null);
-	    TextView t1 = (TextView) textView.findViewById(R.id.result);
-	    t1.setText(result);
-	}
 
 
+}
 }

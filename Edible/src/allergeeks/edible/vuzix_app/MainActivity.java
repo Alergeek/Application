@@ -22,6 +22,8 @@ public class MainActivity extends Activity {
 	private VoiceControl vc;
 	Toast toast;
 	private Button scanBtn;
+
+	
 	//private TextView formatTxt, contentTxt;
 	
 	
@@ -31,27 +33,34 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		result = (TextView)findViewById(R.id.result);
-		
-		
-		result.setText("Test");
-		vc = new myVoiceControl(this);
-		
 		main = this;
 		scanBtn = (Button)findViewById(R.id.scan_button);
 		formatTxt = (TextView)findViewById(R.id.scan_format);
 		contentTxt = (TextView)findViewById(R.id.scan_content);
-		scanBtn.setOnClickListener(new OnClickListener(){
+		
+		
+		result.setText("Test");
+		vc = new myVoiceControl(this){
 			
-			public void onClick(View v){
-				//respond to clicks
-				if(v.getId()==R.id.scan_button){
-					//scan
-					IntentIntegrator scanIntegrator = new IntentIntegrator(main);
-					scanIntegrator.initiateScan();
-					}
-				}
-		});
-	}
+			protected void onRecognition(String arg0) {
+				// TODO Auto-generated method stub
+			//getView(0, null, null, arg0);
+			//	TextView view;
+
+			result.setText("Debug: " + arg0);
+			
+			if(arg0.equals("10")){
+				IntentIntegrator scanIntegrator = new IntentIntegrator(main);
+				scanIntegrator.initiateScan();
+				
+			}
+
+
+		}
+		};
+		
+}		
+
 	
 	
 	
@@ -59,39 +68,18 @@ public class MainActivity extends Activity {
 		//retrieve scan result
 		IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		
+		
+		
 		if (scanningResult != null) {
 			//we have a result
 			String scanContent = scanningResult.getContents();
 			int result = Integer.parseInt(scanContent);
-			//String scanFormat = scanningResult.getFormatName();
+			String scanFormat = scanningResult.getFormatName();
+			formatTxt.setText("Result: " + result); 
 			
-			if(result == 42141112){
-				Toast toast =Toast.makeText(getApplicationContext(), "Worked", Toast.LENGTH_SHORT);
-				toast.show();
-				
-			}
-			else 
-			{
-				Toast toast =Toast.makeText(getApplicationContext(), "Didn't Worked", Toast.LENGTH_SHORT);
-				toast.show();
-				
-			}
-			}
-		else{
-		    Toast toast = Toast.makeText(getApplicationContext(), 
-		        "No scan data received!", Toast.LENGTH_SHORT);
-		    toast.show();
+			}//close if scanning != null
 		}
-		}
-		/*if(vc != null){
-			 toast.makeText(this,"klappt",Toast.LENGTH_LONG).show();
-			
-			 
-		}else{
-			 toast.makeText(this,"klappt nicht",Toast.LENGTH_LONG).show();	
-		}
-		*/
-
+	
 	
 	
 	@Override
