@@ -1,0 +1,6 @@
+Zeile 77: String scanFormat = scanningResult.getFormatName();
+Dieser String wird fucking nie wieder verwendet, WHY?
+
+Zeile 80: //close if scanning != null
+Error Handling, kennsch des?
+
