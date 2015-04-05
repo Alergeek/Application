@@ -3,37 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
-        android:id="@+id/scan_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/scan" />
-
-    <TextView
-        android:id="@+id/scan_format"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scan_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Bitte Scannen"
-        android:textIsSelectable="true" />
-
-    <TextView
-        android:id="@+id/scan_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/scan_format"
-        android:layout_below="@+id/scan_format"
-        android:textIsSelectable="true" />
-
     <TextView
         android:id="@+id/result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/scan_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="57dp"
         android:textIsSelectable="true" />
 
 </RelativeLayout>

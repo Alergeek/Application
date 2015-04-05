@@ -3,6 +3,7 @@ package allergeeks.edible.vuzix_app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.ProgramFragmentFixedFunction.Builder.Format;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,36 +19,31 @@ import com.vuzix.speech.VoiceControl;
 public class MainActivity extends Activity {
 	
 	private Activity main = this;
-	private TextView result, contentTxt, formatTxt;
+	private TextView debugspeech,  barcode;
 	private VoiceControl vc;
 	Toast toast;
-	private Button scanBtn;
 
-	
-	//private TextView formatTxt, contentTxt;
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		result = (TextView)findViewById(R.id.result);
-		main = this;
-		scanBtn = (Button)findViewById(R.id.scan_button);
-		formatTxt = (TextView)findViewById(R.id.scan_format);
-		contentTxt = (TextView)findViewById(R.id.scan_content);
+		debugspeech = (TextView)findViewById(R.id.result);
+		barcode = (TextView)findViewById(R.id.scan_content);
+		barcode.setText("Barcode");
+		debugspeech.setText("Debug: ");
 		
 		
-		result.setText("Test");
 		vc = new myVoiceControl(this){
+		
 			
 			protected void onRecognition(String arg0) {
 				// TODO Auto-generated method stub
 			//getView(0, null, null, arg0);
 			//	TextView view;
 
-			result.setText("Debug: " + arg0);
+				debugspeech.setText("Debug: " + arg0);
 			
 			if(arg0.equals("10")){
 				IntentIntegrator scanIntegrator = new IntentIntegrator(main);
@@ -72,10 +68,9 @@ public class MainActivity extends Activity {
 		
 		if (scanningResult != null) {
 			//we have a result
-			String scanContent = scanningResult.getContents();
-			int result = Integer.parseInt(scanContent);
-			String scanFormat = scanningResult.getFormatName();
-			formatTxt.setText("Result: " + result); 
+			String barcodenummer = scanningResult.getContents();
+			
+			barcode.setText("Result: " + barcodenummer); 
 			
 			}//close if scanning != null
 		}
@@ -96,6 +91,8 @@ public class MainActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			IntentIntegrator scanIntegrator = new IntentIntegrator(main);
+			scanIntegrator.initiateScan();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
