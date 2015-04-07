@@ -73,7 +73,10 @@ public class MainActivity extends Activity {
 			barcode.setText("Result: " + barcodenummer); 
 			
 			}//close if scanning != null
+		else{
+		barcode.setText("Es konnte kein Barcode erkannt werden.");	//Bei API beachten
 		}
+	}
 	
 	
 	
