@@ -1,14 +1,12 @@
 package allergeeks.edible.vuzix_app;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ProgramFragmentFixedFunction.Builder.Format;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,16 +20,26 @@ public class MainActivity extends Activity {
 	private TextView debugspeech,  barcode;
 	private VoiceControl vc;
 	Toast toast;
+	Token token; 
+	private String id = "Bitte scanne deinen Kopplungscode";
+	boolean created = false;
 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		token = new Token();
 		
+		created = token.fileExistance("token.txt", main);
+		if(created){
+			id = "Vorhanden";
+		}else{
+			id = "nicht Vorhanden";
+		}
 		debugspeech = (TextView)findViewById(R.id.result);
 		barcode = (TextView)findViewById(R.id.scan_content);
-		barcode.setText("Barcode");
+		barcode.setText(id);
 		debugspeech.setText("Debug: ");
 		
 		
@@ -39,23 +47,23 @@ public class MainActivity extends Activity {
 		
 			
 			protected void onRecognition(String arg0) {
-				// TODO Auto-generated method stub
-			//getView(0, null, null, arg0);
-			//	TextView view;
+				//getView(0, null, null, arg0);
+				//	TextView view;
 
 				debugspeech.setText("Debug: " + arg0);
 			
-			if(arg0.equals("10")){
-				IntentIntegrator scanIntegrator = new IntentIntegrator(main);
-				scanIntegrator.initiateScan();
+				if(arg0.equals("select")){
+					IntentIntegrator scanIntegrator = new IntentIntegrator(main);
+					scanIntegrator.initiateScan();
 				
+				}
+
+
 			}
-
-
-		}
-	};
+		};
 		
-}		
+		
+	}	
 
 	
 	
@@ -69,14 +77,19 @@ public class MainActivity extends Activity {
 		if (scanningResult != null) {
 			//we have a result
 			String barcodenummer = scanningResult.getContents();
-			
 			barcode.setText("Result: " + barcodenummer); 
 			
-			}//close if scanning != null
-		else{
-		barcode.setText("Es konnte kein Barcode erkannt werden.");	//Bei API beachten
-		}
-	}
+			
+			}
+			else{
+				barcode.setText("Es konnte kein Barcode erkannt werden.");	//Bei API beachten
+			}
+		}//close if scanning != null
+		
+
+
+		
+	
 	
 	
 	
