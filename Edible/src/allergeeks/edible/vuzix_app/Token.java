@@ -129,6 +129,12 @@ public class Token {
 	public boolean fileExistance(String fname, Context ctr){
 	    File file = ctr.getFileStreamPath(fname);
 	    return file.exists();
+	}	
+	
+	public boolean delete(Context ctr){
+		String dir = ctr.getFilesDir().getAbsolutePath();
+	    File file = new File (dir, "token.txt");
+	    return file.delete();
 	}
 	
 }

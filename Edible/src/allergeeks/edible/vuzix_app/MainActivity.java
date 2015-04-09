@@ -21,28 +21,24 @@ public class MainActivity extends Activity {
 	private VoiceControl vc;
 	Toast toast;
 	Token token; 
-	private String id = "Bitte scanne deinen Kopplungscode";
-	boolean created = false;
+	private String id;// = "Bitte scanne deinen Kopplungscode";
+	boolean created;
+	HttpRequest request;
+	String testexecute;
 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		token = new Token();
-		
-		created = token.fileExistance("token.txt", main);
-		if(created){
-			id = "Vorhanden";
-		}else{
-			id = "nicht Vorhanden";
-		}
 		debugspeech = (TextView)findViewById(R.id.result);
 		barcode = (TextView)findViewById(R.id.scan_content);
-		barcode.setText(id);
+		token = new Token();
 		debugspeech.setText("Debug: ");
+		request = new HttpRequest();
 		
 		
+//###########################Voice#######################################################################  
 		vc = new myVoiceControl(this){
 		
 			
@@ -61,37 +57,70 @@ public class MainActivity extends Activity {
 
 			}
 		};
+//##########################/Voice#######################################################################
 		
+//##########################Tokencheck###################################################################		
+		created = token.fileExistance("token.txt", main);
 		
-	}	
+
 
 	
-	
+	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		//retrieve scan result
 		IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		
-		
-		
 		if (scanningResult != null) {
 			//we have a result
 			String barcodenummer = scanningResult.getContents();
-			barcode.setText("Result: " + barcodenummer); 
+			
+			if(!created){
+					try{
+						
+						String answer = request.Session(barcodenummer);
+						if(answer != null){
+							token.createToken(answer, main);
+							id = barcodenummer;
+							created = true;
+							barcode.setText(id);
+						}	
+					}catch(Exception e ){
+						
+					};
+				
+			}else{
+				try {
+					id = token.readToken(main);
+					barcode.setText(id);
+					String answer = request.Request(id, barcodenummer);
+					if(answer !=null){
+						if(answer.equals("401")){
+							token.delete(main);
+							// TODO delete 
+							toast = Toast.makeText(getApplicationContext(), "Ihr Gerät ist nicht mit einem Account verbunden, bitte koppeln Sie Ihr Gerät", Toast.LENGTH_LONG);
+							toast.show(); 
+						}else{
+							// TODO Antwort parsen auf blacklist
+							
+						}
+					}else{
+						toast = Toast.makeText(getApplicationContext(), "Fehler beim Verbinden zum Server", Toast.LENGTH_LONG);
+						toast.show();	
+					} // ANSWER != NULL
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				};
+			}//!CREATED
 			
 			
-			}
-			else{
-				barcode.setText("Es konnte kein Barcode erkannt werden.");	//Bei API beachten
-			}
-		}//close if scanning != null
-		
+		}else{
+			toast = Toast.makeText(getApplicationContext(), "Leider konnte der Barcode nicht erkannt werden", Toast.LENGTH_SHORT);
+			toast.show();
+		}//SCANNING != NULL
+	}
 
-
-		
-	
-	
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

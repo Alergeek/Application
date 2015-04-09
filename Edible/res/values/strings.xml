@@ -3,6 +3,8 @@
 
     <string name="app_name">Edible</string>
     <string name="hello_world">Hello world!</string>
-   <string name="action_settings">Scan</string>
- 	<string name="scan">Scan</string>
+    <string name="action_settings">Scan</string>
+    <string name="scan">Scan</string>
+    <string name="title_activity_http_request">HttpRequest</string>
+
 </resources>
