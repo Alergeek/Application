@@ -1,7 +1,101 @@
-Sprachbefehl:
-ten und scan unterscheiden sich... bei Scan startet der Scanner nicht bei ten schon 
+##########################################################################################################################################
+###############################################MAIN######################################################################################
+##########################################################################################################################################
 
-Nach Scannen:
-Nach dem Scannen von einem Barcode (13 Stellen http://upload.wikimedia.org/wikipedia/commons/thumb/8/84/EAN13.svg/220px-EAN13.svg.png ) erscheint ein Error und die App schmiert ab."Unfortunately, Edible has stopped"
-
-Kann es sein, dass ich nicht die aktuelleste APK hab? 
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		//retrieve scan result
+		IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+		
+/*		if (scanningResult != null) {
+			//we have a result
+			String barcodenummer = scanningResult.getContents();
+			
+			if(!created){
+					try{
+						
+						String answer = request.Session(barcodenummer);
+						if(answer != null){
+							token.createToken(answer, main);
+							id = barcodenummer;
+							created = true;
+							barcode.setText(id);
+						}	
+					}catch(Exception e ){
+						
+					};
+				
+			}else{
+				try {
+					id = token.readToken(main);
+					//barcode.setText(id);
+					String answer = request.Request(id, "1234567890125");//barcodenummer);
+					barcode.setText(answer);
+					if(answer !=null){
+						barcode.setText(answer);
+						if(answer.equals("401")){ //no token
+							token.delete(main);
+							created = token.fileExistance(barcodenummer, main);
+							//Log.i("Created", Boolean.toString(created));
+							toast = Toast.makeText(getApplicationContext(), "Ihr Gerät ist nicht mit einem Account verbunden, bitte koppeln Sie Ihr Gerät", Toast.LENGTH_LONG);
+							toast.show(); 
+						}else if(answer.equals("404")){ //Product not available
+							toast = Toast.makeText(getApplicationContext(), "Tut uns leid, dass gescannte Produkt ist leider nicht in unserer Datenbank gepflegt.", Toast.LENGTH_LONG);
+							toast.show();
+						}
+						else{
+						
+							// TODO Antwort parsen auf blacklist
+							
+						}
+					}else{
+						barcode.setText(answer);
+						//toast = Toast.makeText(getApplicationContext(), "Fehler beim Verbinden zum Server", Toast.LENGTH_LONG);
+						//toast.show();	
+					} // ANSWER != NULL
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				};
+			}//!CREATED
+			
+			
+			
+			
+			
+##########################################################################################################################################
+###############################################TOKEN######################################################################################
+##########################################################################################################################################
+/*
+	public void createToken(String arg0) throws IOException{
+		try {
+			FileOutputStream fos = new FileOutputStream("token.txt");
+			DataOutputStream dos = new DataOutputStream(fos);
+			dos.writeUTF(arg0);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public String readToken() throws IOException{
+		
+		try {
+			FileInputStream fis = new FileInputStream("token.txt");
+			DataInputStream dis = new DataInputStream(fis);
+			return dis.readUTF();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "0";
+		}
+		
+		
+	}
+	*/			
+			
+		}else{
+			toast = Toast.makeText(getApplicationContext(), "Leider konnte der Barcode nicht erkannt werden", Toast.LENGTH_SHORT);
+			toast.show();
+		}//SCANNING != NULL
+*/	}

@@ -17,36 +17,8 @@ public class Token {
 	
 	public Token(){
 		super();
-		
 		}
-/*
-	public void createToken(String arg0) throws IOException{
-		try {
-			FileOutputStream fos = new FileOutputStream("token.txt");
-			DataOutputStream dos = new DataOutputStream(fos);
-			dos.writeUTF(arg0);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public String readToken() throws IOException{
-		
-		try {
-			FileInputStream fis = new FileInputStream("token.txt");
-			DataInputStream dis = new DataInputStream(fis);
-			return dis.readUTF();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "0";
-		}
-		
-		
-	}
-	*/
+
 	public void createToken(String arg0, Context ctr) throws IOException{
 		FileOutputStream fos = null;
 		OutputStreamWriter osw = null;

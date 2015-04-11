@@ -1,10 +1,7 @@
 package allergeeks.edible.vuzix_app;
-import android.app.Activity;
+
+
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.vuzix.speech.VoiceControl;
 
