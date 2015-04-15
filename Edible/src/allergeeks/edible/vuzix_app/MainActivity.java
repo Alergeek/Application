@@ -62,14 +62,20 @@ public class MainActivity extends Activity {
 		scan = (Button)findViewById(R.id.scan);
 		token = new Token();
 		debugspeech.setText("Debug: ");
-		created = token.fileExistance("token.txt", main);
+		//created = token.fileExistance("token.txt", main);
 		view.setImageResource(R.drawable.hello);
-		
+		//token.delete(main);
+		created = token.fileExistance("token.txt", main);
 		scan.setOnClickListener(new OnClickListener() {
-			
+		
 			@Override
 			public void onClick(View v) {
+				
 				// TODO Auto-generated method stub
+				if(!created){
+					toast = Toast.makeText(main, "Bitte koppeln Sie jetzt Ihr Gerät", Toast.LENGTH_LONG);
+					toast.show();
+				}
 				IntentIntegrator scanIntegrator = new IntentIntegrator(main);
 				scanIntegrator.initiateScan();
 				
@@ -80,12 +86,14 @@ public class MainActivity extends Activity {
 		
 			
 			protected void onRecognition(String arg0) {
-				//getView(0, null, null, arg0);
-				//	TextView view;
 
-				debugspeech.setText("Debug: " + arg0);
-			
+
+				debugspeech.setText(arg0);
 				if(arg0.equals("select")){
+					if(!created){
+						toast = Toast.makeText(main, "Bitte koppeln Sie jetzt Ihr Gerät", Toast.LENGTH_LONG);
+						toast.show();
+					}
 					IntentIntegrator scanIntegrator = new IntentIntegrator(main);
 					scanIntegrator.initiateScan();
 				
@@ -105,13 +113,13 @@ public class MainActivity extends Activity {
 		//retrieve scan result
 		IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		String ean = scanningResult.getContents();
-		String authToken;
+		String authToken ="";
 		if(created){ //go in if a token file exists
 			try {
 				
 //#########################Testparams###########################################################################	
-				ean = "1234567890123";
-				authToken ="1111111111111111111";
+				//ean = "1234567890123";
+				//authToken ="1111111111111111111";
 //#######################Testparams#############################################################################
 				
 				authToken = token.readToken(main);
@@ -210,7 +218,7 @@ public class MainActivity extends Activity {
 					toast.show();
 					view.setImageResource(R.drawable.wlan);
 				}else if (result.equals("not available")){//produkt nicht vorhanden
-					toast = Toast.makeText(main, "Das gescannte Produkt ist uns leider nicht vorhanden", Toast.LENGTH_LONG);
+					toast = Toast.makeText(main, "Das gescannte Produkt ist uns leider nicht bekannt", Toast.LENGTH_LONG);
 					toast.show();
 					view.setImageResource(R.drawable.wlan);
 				}else{//sonstige errors
@@ -226,7 +234,7 @@ public class MainActivity extends Activity {
 
 		@Override
 		protected Boolean doInBackground(String... params) {
-			String url = page;
+			String url = page+"/api/v1/session/";
 			try{
 				HttpClient httpclient = new DefaultHttpClient();
 				HttpPost request = new HttpPost(url);
@@ -247,9 +255,11 @@ public class MainActivity extends Activity {
 				switch(status){
 				case 200: 	String data = EntityUtils.toString(response.getEntity());
 							JSONObject jObj = new JSONObject(data);
-							String authToken = jObj.getString("token");
+							String authToken = jObj.getString("authToken");
 							token.createToken(authToken, main);
 							created = token.fileExistance("token.txt", main);
+							//String test = token.readToken(main);
+							//created = token.fileExistance("token.txt", main);
 							break;
 				default: 	created = false;
 							break;
