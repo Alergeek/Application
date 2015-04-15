@@ -1,5 +1,7 @@
 package allergeeks.edible.vuzix_app;
 
+
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +20,14 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,22 +44,37 @@ public class MainActivity extends Activity {
 	private VoiceControl vc;
 	Toast toast;
 	Token token; 
-	private String id, page = "http://37.221.192.99";// = "Bitte scanne deinen Kopplungscode";
+	private String id, page = "http://edible.ddns.net";// = "Bitte scanne deinen Kopplungscode";
 	boolean created;
 	String testexecute;
+	Button scan;
+	
 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 		debugspeech = (TextView)findViewById(R.id.result);
 		view = (ImageView)findViewById(R.id.imageView1);
 		barcode = (TextView)findViewById(R.id.scan_content);
+		scan = (Button)findViewById(R.id.scan);
 		token = new Token();
 		debugspeech.setText("Debug: ");
 		created = token.fileExistance("token.txt", main);
+		view.setImageResource(R.drawable.hello);
 		
+		scan.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				IntentIntegrator scanIntegrator = new IntentIntegrator(main);
+				scanIntegrator.initiateScan();
+				
+			}
+		});
 //###########################Voice#######################################################################  
 		vc = new myVoiceControl(this){
 		
@@ -109,28 +128,7 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			IntentIntegrator scanIntegrator = new IntentIntegrator(main);
-			scanIntegrator.initiateScan();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	
-	
+		
 	protected void onResume(){
 		super.onResume();
 		vc.on();
@@ -203,17 +201,22 @@ public class MainActivity extends Activity {
 			protected void onPostExecute(String result) {
 				// TODO Auto-generated method stub
 				super.onPostExecute(result);
-				if (result.equals("edible")){
-					
-					view.setImageResource(R.drawable.herz);
+				if (result.equals("edible")){	
+					view.setImageResource(R.drawable.heart);
 				}else if (result.equals("not edible")){
-					view.setImageResource(R.drawable.gebrochnesherz);
+					view.setImageResource(R.drawable.brokenheart);
 				}else if (result.equals("tokenerror")){//token abgelaufen
-					view.setImageResource(R.drawable.gebrochnesherz);
+					toast = Toast.makeText(main, "Ihr Vuzix Gerät ist nicht mit einem Account verbunden", Toast.LENGTH_LONG);
+					toast.show();
+					view.setImageResource(R.drawable.wlan);
 				}else if (result.equals("not available")){//produkt nicht vorhanden
-					view.setImageResource(R.drawable.gebrochnesherz);
+					toast = Toast.makeText(main, "Das gescannte Produkt ist uns leider nicht vorhanden", Toast.LENGTH_LONG);
+					toast.show();
+					view.setImageResource(R.drawable.wlan);
 				}else{//sonstige errors
-					view.setImageResource(R.drawable.ic_launcher);
+					toast = Toast.makeText(main, "Es ist ein Fehler aufgetreten, bitte versuchen Sie es später erneut", Toast.LENGTH_LONG);
+					toast.show();
+					view.setImageResource(R.drawable.wlan);
 				}
 				
 			}
@@ -235,10 +238,17 @@ public class MainActivity extends Activity {
 				request.setEntity(formEntity);
 				HttpResponse response = httpclient.execute(request);
 				int status = response.getStatusLine().getStatusCode();
-				String authToken = EntityUtils.toString(response.getEntity());
+				
+/*				String data = EntityUtils.toString(response.getEntity());
+				JSONObject jObj = new JSONObject(data);
+				String authToken = jObj.getString("token");*/
+				
 				
 				switch(status){
-				case 200: 	token.createToken(authToken, main);
+				case 200: 	String data = EntityUtils.toString(response.getEntity());
+							JSONObject jObj = new JSONObject(data);
+							String authToken = jObj.getString("token");
+							token.createToken(authToken, main);
 							created = token.fileExistance("token.txt", main);
 							break;
 				default: 	created = false;
@@ -258,16 +268,19 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			if(result){
-				view.setImageResource(R.drawable.herz);//Token wurde generiert und gespeichert
+				toast = Toast.makeText(main, "Kopplung war erfolgreich", Toast.LENGTH_LONG);
+				toast.show();
+				view.setImageResource(R.drawable.heart);//Token wurde generiert und gespeichert
 			}else{
-				view.setImageResource(R.drawable.gebrochnesherz);//Token wurde nicht gespeichert
+				toast = Toast.makeText(main, "Kopplung war NICHT erfolgreich", Toast.LENGTH_LONG);
+				toast.show();
+				view.setImageResource(R.drawable.brokenheart);//Token wurde nicht gespeichert
 			}
 			
 			
 			
 		}
 	}
-
 
 
 }
