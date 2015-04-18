@@ -20,9 +20,10 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -40,11 +41,11 @@ public class MainActivity extends Activity {
 	
 	ImageView view;
 	private Activity main = this;
-	private TextView debugspeech,  barcode;
+	private TextView infotext;
 	private VoiceControl vc;
 	Toast toast;
 	Token token; 
-	private String id, page = "http://edible.ddns.net";// = "Bitte scanne deinen Kopplungscode";
+	private String id, page = "http://edible.ddns.net";
 	boolean created;
 	String testexecute;
 	Button scan;
@@ -56,18 +57,21 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		debugspeech = (TextView)findViewById(R.id.result);
+		
 		view = (ImageView)findViewById(R.id.imageView1);
-		barcode = (TextView)findViewById(R.id.scan_content);
 		scan = (Button)findViewById(R.id.scan);
 		token = new Token();
-		debugspeech.setText("Debug: ");
-		//created = token.fileExistance("token.txt", main);
-		view.setImageResource(R.drawable.hello);
-		//token.delete(main);
+		infotext = (TextView)findViewById(R.id.infotext);
+		view.setImageResource(R.drawable.background);
 		created = token.fileExistance("token.txt", main);
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Regular.ttf");
+		infotext.setTypeface(type);
+		infotext.setTextColor(Color.BLACK);
+		infotext.setText("Welcome\n       by\n   Edible");
 		scan.setOnClickListener(new OnClickListener() {
 		
+			
+			
 			@Override
 			public void onClick(View v) {
 				
@@ -88,7 +92,7 @@ public class MainActivity extends Activity {
 			protected void onRecognition(String arg0) {
 
 
-				debugspeech.setText(arg0);
+				
 				if(arg0.equals("select")){
 					if(!created){
 						toast = Toast.makeText(main, "Bitte koppeln Sie jetzt Ihr Gerät", Toast.LENGTH_LONG);
@@ -106,22 +110,18 @@ public class MainActivity extends Activity {
 
 	}
 	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
-	 */
+//Receiving the ScanResult and check the Token
+//If the Token is available on the Vuzix, we will make a get-request with the params authToken ( Token that is saved on the Vuzix), and the scanned Code as ean
+//else we will try to get a Token with a Post-request as param we use the scanned code	
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		//retrieve scan result
 		IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		String ean = scanningResult.getContents();
+		view.setImageResource(R.drawable.background);
+		infotext.setText("\n\nLäd ...");
 		String authToken ="";
 		if(created){ //go in if a token file exists
-			try {
-				
-//#########################Testparams###########################################################################	
-				//ean = "1234567890123";
-				//authToken ="1111111111111111111";
-//#######################Testparams#############################################################################
-				
+			try {				
 				authToken = token.readToken(main);
 				String url = page +"/api/v1/product/"+ean+"/"+authToken+"/";
 				new GetProduct().execute(url);
@@ -155,6 +155,8 @@ public class MainActivity extends Activity {
 		}
 	}	
 	
+//getProduct class to receive the edible status from an user
+//DoInBackground will make the Request onPostExecute we handle the response	
 	public class GetProduct extends AsyncTask<String, Void, String>{
 			
 			@Override
@@ -163,6 +165,10 @@ public class MainActivity extends Activity {
 				
 				try {
 					//Get Edible Status
+					//here we are making the request to the website and check the status code, witch we receive
+					//if status code = 200 everything is ok so we can parse the received JSONObject 
+					//else we are checking the codes if it is = 401 then we know that the vuzix was unpaired from the website and we can delete the Token
+					//if the code is 404 than the scanned product isn't available in our Datastorage
 					HttpClient client = new DefaultHttpClient();
 					HttpGet get = new HttpGet(params[0]);
 					HttpResponse response = client.execute(get);
@@ -177,7 +183,7 @@ public class MainActivity extends Activity {
 						JSONObject jObj = new JSONObject(data);
 						String name = jObj.getString("edible");
 						
-						if(name.equals("True")){ //test ob essbar oder nicht
+						if(name.equals("true")){ 
 							name = "edible";
 						}else{
 							name = "not edible";
@@ -208,20 +214,26 @@ public class MainActivity extends Activity {
 			@Override
 			protected void onPostExecute(String result) {
 				// TODO Auto-generated method stub
+				//Just checking the return value from the doInBackground and set the Backgroundimage from the application and/or show a Toast 
 				super.onPostExecute(result);
 				if (result.equals("edible")){	
+					infotext.setText("");
 					view.setImageResource(R.drawable.heart);
 				}else if (result.equals("not edible")){
+					infotext.setText("");
 					view.setImageResource(R.drawable.brokenheart);
-				}else if (result.equals("tokenerror")){//token abgelaufen
+				}else if (result.equals("tokenerror")){
 					toast = Toast.makeText(main, "Ihr Vuzix Gerät ist nicht mit einem Account verbunden", Toast.LENGTH_LONG);
 					toast.show();
+					infotext.setText("");
 					view.setImageResource(R.drawable.wlan);
-				}else if (result.equals("not available")){//produkt nicht vorhanden
+				}else if (result.equals("not available")){
 					toast = Toast.makeText(main, "Das gescannte Produkt ist uns leider nicht bekannt", Toast.LENGTH_LONG);
 					toast.show();
+					infotext.setText("");
 					view.setImageResource(R.drawable.wlan);
-				}else{//sonstige errors
+				}else{
+					infotext.setText("");
 					toast = Toast.makeText(main, "Es ist ein Fehler aufgetreten, bitte versuchen Sie es später erneut", Toast.LENGTH_LONG);
 					toast.show();
 					view.setImageResource(R.drawable.wlan);
@@ -235,6 +247,9 @@ public class MainActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(String... params) {
 			String url = page+"/api/v1/session/";
+			
+			//almost the same code like GetProcduct in this class we just added a List with NameValuePiar to set the params for the post-request
+			//everything else is just straight forward checking statuscode and parsing the response save the result in the Tokenfile and finish
 			try{
 				HttpClient httpclient = new DefaultHttpClient();
 				HttpPost request = new HttpPost(url);
@@ -247,26 +262,16 @@ public class MainActivity extends Activity {
 				HttpResponse response = httpclient.execute(request);
 				int status = response.getStatusLine().getStatusCode();
 				
-/*				String data = EntityUtils.toString(response.getEntity());
-				JSONObject jObj = new JSONObject(data);
-				String authToken = jObj.getString("token");*/
-				
-				
 				switch(status){
 				case 200: 	String data = EntityUtils.toString(response.getEntity());
 							JSONObject jObj = new JSONObject(data);
 							String authToken = jObj.getString("authToken");
 							token.createToken(authToken, main);
 							created = token.fileExistance("token.txt", main);
-							//String test = token.readToken(main);
-							//created = token.fileExistance("token.txt", main);
 							break;
 				default: 	created = false;
 							break;
 				}
-				
-				
-				
 				return created;
 			}catch(Exception e){
 				
@@ -278,10 +283,12 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			if(result){
+				infotext.setText("");
 				toast = Toast.makeText(main, "Kopplung war erfolgreich", Toast.LENGTH_LONG);
 				toast.show();
 				view.setImageResource(R.drawable.heart);//Token wurde generiert und gespeichert
 			}else{
+				infotext.setText("");
 				toast = Toast.makeText(main, "Kopplung war NICHT erfolgreich", Toast.LENGTH_LONG);
 				toast.show();
 				view.setImageResource(R.drawable.brokenheart);//Token wurde nicht gespeichert

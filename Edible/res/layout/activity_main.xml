@@ -3,22 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:textIsSelectable="true" />
-
-    <TextView
-        android:id="@+id/scan_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="57dp"
-        android:textIsSelectable="true" />
-
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="fill_parent"
@@ -26,13 +10,20 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" />
 
+    <TextView
+        android:id="@+id/infotext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="50sp" />
+
     <Button
         android:id="@+id/scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="177dp"
-        android:layout_toRightOf="@+id/result"
+        android:layout_centerHorizontal="true"
         android:text="Scan" />
 
 </RelativeLayout>

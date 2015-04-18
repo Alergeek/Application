@@ -12,28 +12,22 @@ public final class R {
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
-
-         Example customization of dimensions originally defined in res/values/dimens.xml
-         (such as screen margins) for screens with more than 820dp of available width. This
-         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
-    
          */
         public static final int activity_horizontal_margin=0x7f040000;
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int brokenheart=0x7f020000;
-        public static final int heart=0x7f020001;
-        public static final int hello=0x7f020002;
+        public static final int background=0x7f020000;
+        public static final int brokenheart=0x7f020001;
+        public static final int heart=0x7f020002;
         public static final int ic_launcher=0x7f020003;
         public static final int wlan=0x7f020004;
     }
     public static final class id {
-        public static final int action_settings=0x7f080004;
-        public static final int imageView1=0x7f080002;
-        public static final int result=0x7f080000;
-        public static final int scan=0x7f080003;
-        public static final int scan_content=0x7f080001;
+        public static final int action_settings=0x7f080003;
+        public static final int imageView1=0x7f080000;
+        public static final int infotext=0x7f080001;
+        public static final int scan=0x7f080002;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
