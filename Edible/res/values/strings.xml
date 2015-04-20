@@ -6,5 +6,6 @@
     <string name="action_settings">Scan</string>
     <string name="scan">Scan</string>
     <string name="title_activity_http_request">HttpRequest</string>
-
+	<string name="welcome">\nWelcome\n\u0020\u0020\u0020\u0020\u0020\u0020to\n\u0020\u0020\u0020Edible</string>
+	<string name="wait">\n\nLädt\u0020...</string>
 </resources>

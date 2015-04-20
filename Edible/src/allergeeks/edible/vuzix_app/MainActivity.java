@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 	private VoiceControl vc;
 	Toast toast;
 	Token token; 
-	private String id, page = "http://edible.ddns.net";
+	private String page = "http://edible.ddns.net";
 	boolean created;
 	String testexecute;
 	Button scan;
@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Regular.ttf");
 		infotext.setTypeface(type);
 		infotext.setTextColor(Color.BLACK);
-		infotext.setText("Welcome\n       by\n   Edible");
+		infotext.setText(R.string.welcome);
 		scan.setOnClickListener(new OnClickListener() {
 		
 			
@@ -118,7 +118,7 @@ public class MainActivity extends Activity {
 		IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		String ean = scanningResult.getContents();
 		view.setImageResource(R.drawable.background);
-		infotext.setText("\n\nLäd ...");
+		infotext.setText(R.string.wait);
 		String authToken ="";
 		if(created){ //go in if a token file exists
 			try {				
@@ -190,12 +190,12 @@ public class MainActivity extends Activity {
 						}
 						
 					return name;	
-					}else if(status == 401){//token abgelaufen
+					}else if(status == 401){//token invalide
 						token.delete(main);
 						created = token.fileExistance("token.txt", main);
 						String result = "tokenerror";
 						return result;
-					}else if(status == 404){//produkt nicht vorhanden
+					}else if(status == 404){//product not available
 						String result = "not available";
 						return result;						
 					}
@@ -286,12 +286,12 @@ public class MainActivity extends Activity {
 				infotext.setText("");
 				toast = Toast.makeText(main, "Kopplung war erfolgreich", Toast.LENGTH_LONG);
 				toast.show();
-				view.setImageResource(R.drawable.heart);//Token wurde generiert und gespeichert
+				view.setImageResource(R.drawable.heart);//Token saved
 			}else{
 				infotext.setText("");
 				toast = Toast.makeText(main, "Kopplung war NICHT erfolgreich", Toast.LENGTH_LONG);
 				toast.show();
-				view.setImageResource(R.drawable.brokenheart);//Token wurde nicht gespeichert
+				view.setImageResource(R.drawable.brokenheart);//Token not saved
 			}
 			
 			
