@@ -66,6 +66,7 @@ public class MainActivity extends Activity {
 		created = token.fileExistance("token.txt", main);
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Regular.ttf");
 		infotext.setTypeface(type);
+		scan.setTypeface(type);
 		infotext.setTextColor(Color.BLACK);
 		infotext.setText(R.string.welcome);
 		scan.setOnClickListener(new OnClickListener() {
@@ -226,17 +227,17 @@ public class MainActivity extends Activity {
 					toast = Toast.makeText(main, "Ihr Vuzix Gerät ist nicht mit einem Account verbunden", Toast.LENGTH_LONG);
 					toast.show();
 					infotext.setText("");
-					view.setImageResource(R.drawable.wlan);
+					view.setImageResource(R.drawable.error);
 				}else if (result.equals("not available")){
 					toast = Toast.makeText(main, "Das gescannte Produkt ist uns leider nicht bekannt", Toast.LENGTH_LONG);
 					toast.show();
 					infotext.setText("");
-					view.setImageResource(R.drawable.wlan);
+					view.setImageResource(R.drawable.error);
 				}else{
 					infotext.setText("");
 					toast = Toast.makeText(main, "Es ist ein Fehler aufgetreten, bitte versuchen Sie es später erneut", Toast.LENGTH_LONG);
 					toast.show();
-					view.setImageResource(R.drawable.wlan);
+					view.setImageResource(R.drawable.error);
 				}
 				
 			}
